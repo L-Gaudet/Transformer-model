@@ -54,6 +54,6 @@ class Decoder(nn.Module):
     out = self.fully_connected_out(x)
 
     # final softmax 
-    # out = torch.softmax(out)
+    # out = torch.softmax(out, dim=2)
 
     return out

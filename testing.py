@@ -18,3 +18,11 @@ if __name__ == '__main__':
   out = model(x, trg[:, :-1])
 
   print(out.shape)
+
+  for var_name in model.state_dict():
+    print(var_name, "\t", model.state_dict()[var_name])
+
+
+  torch.save(model, './savedmodel')
+
+  # print(out)

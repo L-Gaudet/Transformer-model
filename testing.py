@@ -19,10 +19,12 @@ if __name__ == '__main__':
 
   print(out.shape)
 
-  for var_name in model.state_dict():
-    print(var_name, "\t", model.state_dict()[var_name])
+  # for var_name in model.state_dict():
+  #   print(var_name, "\t", model.state_dict()[var_name])
+
+  print(model.parameters())
 
 
-  torch.save(model, './savedmodel')
+  # torch.save(model, './savedmodel')
 
   # print(out)

@@ -15,9 +15,8 @@ class TransformerClassifier(nn.Module):
             num_classes,
             max_pool=True,
             dropout=0.0,
-            wide=False
     ):
-        super.__init__()
+        super().__init__()
 
         # define token sizes
         self.num_token = num_tokens
@@ -36,7 +35,7 @@ class TransformerClassifier(nn.Module):
                 TransformerBlock(embed_size=emb_dimension, 
                                 heads=heads,
                                 mask=False,
-                                dropout=dropout
+                                dropout=dropout,
                                 forward_expansion=seq_len)
             )
 

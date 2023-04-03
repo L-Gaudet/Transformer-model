@@ -38,9 +38,10 @@ def start(arg):
 
     # build the train vocab
     counter = Counter()
-    for text, label in train:
+    for label, text in train:
+        # print(text)
         counter.update(tokenizer(text))
-    vocab = Vocab(counter, min_freq=1)
+    vocab = Vocab(counter)
 
     text_transform = lambda x: [vocab['']] + [vocab[token] for token in tokenizer(x)] + [vocab['']]
     label_transform = lambda x: 1 if x == 'pos' else 0
@@ -58,9 +59,9 @@ def start(arg):
     
     # build the test vocab
     counter = Counter()
-    for text, label in test:
+    for label, text in test:
         counter.update(tokenizer(text))
-    vocab = Vocab(counter, min_freq=1)
+    vocab = Vocab(counter)
 
     test_iter = DataLoader(list(test), batch_size=8, shuffle=False, 
                               collate_fn=collate_batch)
@@ -124,8 +125,8 @@ def start(arg):
   # create model
   model = TransformerClassifier(emb_dimension=arg.embedding_size, 
                                 heads=arg.num_heads, 
-                                depth=arg.depth,
-                                seq_length=mx,
+                                layers=arg.depth,
+                                seq_len=mx,
                                 num_tokens=arg.vocab_size,
                                 num_classes=NUM_CLASSES,
                                 max_pool=arg.max_pool)
@@ -142,10 +143,10 @@ def start(arg):
     for batch in tqdm.tqdm(train_iter):
       optimizer.zero_grad()
 
-      input = batch.text[0]
-      label = batch.label - 1
+      input = batch[1][0]
+      label = batch[0] - 1
 
-      if input.size(1) > mx:
+      if input.size(0) > mx:
         input = input[:, :mx]
       
       # forward pass
@@ -190,6 +191,8 @@ def start(arg):
       accuracy = correct/total
       print(f'-- {"test" if arg.final else "validation"} accuracy {accuracy:.3}')
       tbw.add_scalar('classification/test-loss', float(loss.item()), e)
+
+  torch.save(model, './TrainedClassifier')
 
 if __name__ == '__main__':
   parser = ArgumentParser()

@@ -6,8 +6,9 @@ class TransformerBlock(nn.Module):
   # transformer block architecture
     # attention block -> add & normalize -> feed forward -> add & normalize
 
-  def __init__(self, embed_size, heads, dropout, forward_expansion):
+  def __init__(self, embed_size, heads, mask, dropout, forward_expansion):
     super(TransformerBlock, self).__init__()
+    self.mask = mask
     self.attention = SelfAttention(embed_size, heads)
     self.norm1 = nn.LayerNorm(embed_size)
     self.norm2 = nn.LayerNorm(embed_size)
@@ -20,9 +21,9 @@ class TransformerBlock(nn.Module):
 
     self.dropout = nn.Dropout(dropout)
 
-  def forward(self, value, key, query, mask):
+  def forward(self, value, key, query):
     # attention
-    attention = self.attention(value, key, query, mask)
+    attention = self.attention(value, key, query, self.mask)
 
     # add & norm
     x = self.dropout(self.norm1(attention + query))

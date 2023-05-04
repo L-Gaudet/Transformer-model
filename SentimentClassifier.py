@@ -2,6 +2,12 @@ import torch
 from torchtext.legacy import data, datasets
 from torch.utils.data import DataLoader
 from torch.optim import Adam
+import torch.nn as nn
+import torch.optim as optim
+import torchtext.data 
+import torchtext.datasets 
+
+from components.Encoder import Encoder
 
 class SentimentClassifier(nn.Module):
     def __init__(self, src_vocab_size, embed_size, num_layers, heads, device, forward_expansion, dropout, max_length, num_classes):
@@ -32,6 +38,19 @@ class SentimentClassifier(nn.Module):
         out = self.linear(out)
         return out
 
+# Hyperparameters
+src_vocab_size = len(TEXT.vocab)
+embed_size = 256
+num_layers = 3
+heads = 8
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+forward_expansion = 4
+dropout = 0.1
+max_length = 100
+num_classes = 2
+num_epochs = 5
+lr = 0.0005
+batch_size = 32
 
 TEXT = torchtext.data.Field(tokenize="spacy", tokenizer_language="en_core_web_sm", batch_first=True, lower=True, fix_length=max_length)
 LABEL = torchtext.data.LabelField(dtype=torch.float)
@@ -48,20 +67,6 @@ train_iterator, test_iterator = torchtext.data.BucketIterator.splits(
     sort_within_batch=True,
     sort_key=lambda x: len(x.text),
 )
-
-# Hyperparameters
-src_vocab_size = len(TEXT.vocab)
-embed_size = 256
-num_layers = 3
-heads = 8
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-forward_expansion = 4
-dropout = 0.1
-max_length = 100
-num_classes = 2
-num_epochs = 5
-lr = 0.0005
-batch_size = 32
 
 # Initialize the model
 model = SentimentClassifier(src_vocab_size, embed_size, num_layers, heads, device, forward_expansion, dropout, max_length, num_classes)

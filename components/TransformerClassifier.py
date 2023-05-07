@@ -66,7 +66,7 @@ class TransformerClassifier(nn.Module):
         x = self.dropout(x)
 
         # send through transformer layers
-        x = self.tblocks(x)
+        x = self.transformer_blocks(x)
 
         # pool to get narrow classification
         x = x.max(dim=1)[0] if self.max_pool else x.mean(dim=1) 

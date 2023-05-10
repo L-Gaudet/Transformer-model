@@ -6,14 +6,14 @@ CPSC 406: Algorithm Analysis
 Final Project
 ## Student Contributors:
 
+> Lucas - Lead Researcher, Lead Transformer Developer
+>
+> Liam - Self Attention and Algorithm Research, Unit Testing
+>
+> Matthew - Transformer Model Research, Presentation
+>
+> Tyler - Documentation, Nvidia Docker server, Testing Loop
 
-> Lucas Gaudet
->
-> Liam Propst
->
-> Matthew Graham
->
-> Tyler Lewis
 
 
 # How to run:

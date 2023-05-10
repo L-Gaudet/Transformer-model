@@ -22,15 +22,20 @@ Final Project
 
     python SentimentTraining.py
 
-**Alternative: Using NVIDIA Docker:**
+### Train using NVIDIA Docker:
 
-    nvidia-docker build -t sentiment-model .
+    nvidia-docker create -v [main directory location]:/app --name sentiment-container sentiment-model python3 SentimentTraining.py
  
-**then**
+**then:**
 
-    nvidia-docker run -v /nfshome/tylewis/Transformer-model/Transformer-model sentiment-model python3 SentimentTraining.py
+    nvidia-docker start sentiment-container
 
-## To run:
+**finally:**
+
+    docker start sentiment-container
+
+
+### To run with trained model file (500MB +):
 
     python3 SentimentRunner.py
 
@@ -38,8 +43,10 @@ Final Project
 
 This repository contains an implementation of the Transformer architecture proposed in the paper Attention is all You Need (2017). Our implementation of this architecture is contained in the `components` directory of this repo.
 
-#
+All components and related data structures/algorithms are described in detail within the `transformer-from-paper.ipynb` file in the main directory of this repo.
 
+#
+<!-- 
 
 
 The project must be open source and on a public git repository. It must contain a file called LICENSE such as, for example, the MIT License. It also must contain a file .gitignore. See also Git best practices.
@@ -69,4 +76,4 @@ Describe what works and what does not. Did your plans change? What is left to do
 
 Suggest directions for future development. Ideally, a list of possible extensions is described and designed, including details of how the current code base should be modified for the extension.
 
-The last point is particularly important to me. A good open source project is one that inspires others to take it further and provides a basis for future developments.
+The last point is particularly important to me. A good open source project is one that inspires others to take it further and provides a basis for future developments. -->

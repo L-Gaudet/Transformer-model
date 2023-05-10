@@ -3,7 +3,7 @@ from transformers import AutoTokenizer
 from components.TransformerClassifier import TransformerClassifier
 
 # Load the saved model
-PATH_TO_MODEL = 'TrainedClassifier1'
+PATH_TO_MODEL = 'TrainedClassifier'
 model = torch.load(PATH_TO_MODEL, map_location=torch.device('cpu'))
 model.eval()
 

@@ -6,13 +6,13 @@ CPSC 406: Algorithm Analysis
 Final Project
 ## Student Contributors:
 
-> Lucas - Lead Researcher, Lead Transformer Developer
+> Lucas Gaudet - Lead Researcher, Lead Transformer Developer
 >
-> Liam - Self Attention and Algorithm Research, Unit Testing
+> Liam Propst - Self Attention and Algorithm Research, Unit Testing
 >
-> Matthew - Transformer Model Research, Presentation
+> Matthew Graham - Transformer Model Research, Presentation
 >
-> Tyler - Documentation, Nvidia Docker server, Testing Loop
+> Tyler Lewis - Documentation, Nvidia Docker server, Testing Loop
 
 
 
@@ -35,9 +35,9 @@ Final Project
     docker start sentiment-container
 
 
-### To run with trained model file (500MB +):
+### To run with trained model file (TrainedClassifier):
 
-    python3 SentimentRunner.py
+    python3 SentimentRunner.py -f [model filename]
 
 # Description
 

@@ -18,6 +18,7 @@
 
     pip install -r requirements.txt
 
+#
 
 ## To train:
 
@@ -28,9 +29,12 @@ Python file `SentimentTraining.py` initiates the training algorithm
 
 **We recommend to use a Docker container using the included dockerfile. Our testing was completed on the Chapman nvidia-docker server.**
 
-    docker create -v [main directory location]:/app --name sentiment-container [docker-image-name]
+    docker build -t sentiment-container .
 
--> then start container, and attach, alternatively can run `python3 SentimentTraining.py` without setting up training environment.
+-> then create, start, and attach container to run. 
+
+-> alternatively can run `python3 SentimentTraining.py` without setting up training environment.
+#
 
 ### Running with a trained model file (TrainedClassifier):
 
@@ -47,6 +51,46 @@ The implementation of the Transformer architecture can be found in the component
 For a comprehensive understanding of the components, related data structures, and algorithms employed in the implementation, please refer to the `transformer-from-paper.ipynb` file located in the main directory of this repository.
 
 This project aims to provide a solid foundation and inspire further advancements in sentiment analysis and Transformer-based models. With its open-source nature, detailed documentation, and carefully organized code, this repository serves as a valuable resource for developers interested in exploring and extending the capabilities of the Transformer architecture.
+
+#
+
+## Self-Attention Mechanism
+The self-attention mechanism is a fundamental component of the Transformer architecture, enabling it to capture dependencies and relationships within an input sequence. The self-attention mechanism consists of scaled dot-product attention and multi-head attention.
+
+### Scaled Dot-Product Attention
+The scaled dot-product attention computes attention scores between the Query (Q) and Key (K) vectors and scales them by the square root of the dimension of the Query vector:
+
+$$
+Attention(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V
+$$
+
+
+### Multi-Head Attention
+To capture different relationships, the self-attention mechanism is often applied with multiple attention heads. Each attention head has its own sets of Query (Q), Key (K), and Value (V) vectors. The outputs from the multiple attention heads are concatenated and linearly transformed:
+
+
+$$
+MultiHead(Q, K, V) = \text{Concat}(head_1, ..., head_h)W^O
+$$
+
+### Positional Encoding
+To incorporate positional information, the Transformer model utilizes sinusoidal functions to encode the position of each word in the input sequence. The positional encoding matrix PE is added to the input embeddings:
+
+$$
+PE_{(pos, i)} = 
+    \begin{cases} 
+        \sin\left(\frac{pos}{10000^{2i/d}}\right), & \text{if } i \text{ is even} \\
+        \cos\left(\frac{pos}{10000^{2i/d}}\right), & \text{if } i \text{ is odd}
+    \end{cases}
+$$
+
+Where:
+
+pos: Position in the sequence
+i: Dimension index of the positional encoding
+d: Dimension of the input embeddings
+
+These equations represent the key mathematical operations involved in the self-attention mechanism of the Transformer model. By incorporating these equations in your documentation using LaTeX syntax, you can provide a clear understanding of the underlying mathematics behind the sentiment analysis Transformer model.
 
 #
 
